@@ -1,0 +1,66 @@
+\section{Implementa{\c c}{\~a}o do Modelo}
+\label{sec:implmodelo}
+O modelo apresentado foi otimizado para projetos gerenciados pelo Maven. Considerando tal situa{\c c}{\~a}o, {\'e} utilizado dois plugins para automatizar o trabalho de cria{\c c}{\~a}o de branchs e evolu{\c c}{\~a}o de releases. Segue a configura{\c c}{\~a}o dos plugins utilizados que devem ser inseridos no POM do projeto:
+
+\begin{verbatim}
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>build-helper-maven-plugin</artifactId>
+  <version>1.12</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>parse-version</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-release-plugin</artifactId>
+  <version>2.5.3</version>
+  <executions>
+    <execution>
+      <id>dobranch</id>
+      <goals>
+        <goal>branch</goal>
+      </goals>
+      <configuration>
+        <branchName>
+          rel-${parsedVersion.majorVersion}.
+          ${parsedVersion.minorVersion}
+        </branchName>
+        <developmentVersion>
+          ${parsedVersion.majorVersion}.
+          ${parsedVersion.nextMinorVersion}.
+          0-${parsedVersion.qualifier} 
+        </developmentVersion>
+      </configuration>
+    </execution>
+    <execution>
+      <id>dorelease</id>
+      <goals>
+        <goal>prepare</goal>
+      </goals>
+      <configuration>
+        <tagNameFormat>v@{project.version}</tagNameFormat>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+\end{verbatim}
+
+Para a cria{\c c}{\~a}o do branch, foi utilizado o comando:
+
+\begin{verbatim}
+mvn validate release:branch@dobranch
+\end{verbatim}
+
+Para a evolu{\c c}{\~a}o da release, foi utilizado o comando:
+
+\begin{verbatim}
+mvn validate release:clean release:prepare@dorelease release:perform release:clean -B
+\end{verbatim}
+
+O comando de release acima pode ser usado tamb{\'e}m para a evolu{\c c}{\~a}o de releases no branch master.
