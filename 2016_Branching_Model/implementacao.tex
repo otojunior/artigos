@@ -1,6 +1,6 @@
-\section{Implementa{\c c}{\~a}o do Modelo}
+\section{Implementação do Modelo}
 \label{sec:implmodelo}
-O modelo apresentado foi otimizado para projetos gerenciados pelo Maven. Considerando tal situa{\c c}{\~a}o, {\'e} utilizado dois plugins para automatizar o trabalho de cria{\c c}{\~a}o de branchs e evolu{\c c}{\~a}o de releases. Segue a configura{\c c}{\~a}o dos plugins utilizados que devem ser inseridos no POM do projeto:
+O modelo apresentado foi otimizado para projetos gerenciados pelo Maven. Considerando tal situação, é utilizado dois plugins para automatizar o trabalho de criação de branchs e evolução de releases. Segue a configuração dos plugins utilizados que devem ser inseridos no POM do projeto:
 
 \begin{verbatim}
 <plugin>
@@ -51,16 +51,16 @@ O modelo apresentado foi otimizado para projetos gerenciados pelo Maven. Conside
 </plugin>
 \end{verbatim}
 
-Para a cria{\c c}{\~a}o do branch, foi utilizado o comando:
+Para a criação do branch, foi utilizado o comando:
 
 \begin{verbatim}
 mvn validate release:branch@dobranch
 \end{verbatim}
 
-Para a evolu{\c c}{\~a}o da release, foi utilizado o comando:
+Para a evolução da release, foi utilizado o comando:
 
 \begin{verbatim}
 mvn validate release:clean release:prepare@dorelease release:perform release:clean -B
 \end{verbatim}
 
-O comando de release acima pode ser usado tamb{\'e}m para a evolu{\c c}{\~a}o de releases no branch master.
+O comando de release acima pode ser usado também para a evolução de releases no branch master.F
